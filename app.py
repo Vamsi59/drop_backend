@@ -2,8 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os  # for Railway PORT
 
+# allow all origins
+
 app = Flask(__name__)
-CORS(app)  # allow frontend to access API
+CORS(app, resources={r"/*": {"origins": "*"}})    # allow frontend to access API
 
 def predict_dropout(attendance, grades, participation, financial_issue, family_support, health_issue):
     score = 0
@@ -53,3 +55,4 @@ def home():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))  # Railway sets the port
     app.run(host="0.0.0.0", port=port)
+
